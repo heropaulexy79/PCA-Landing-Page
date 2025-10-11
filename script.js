@@ -1,4 +1,23 @@
- // Accordion handling
+// --- Final Mobile Navigation Toggle ---
+document.addEventListener('DOMContentLoaded', () => {
+    const navToggle = document.querySelector('.nav-toggle');
+
+    navToggle.addEventListener('click', () => {
+        // We toggle the class on the BODY element
+        document.body.classList.toggle('nav-open');
+    });
+
+    // Close menu when a link is clicked
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            if (document.body.classList.contains('nav-open')) {
+                document.body.classList.remove('nav-open');
+            }
+        });
+    });
+});
+
+// Accordion handling
     function toggleAcc(el){
       const item = el.closest('.acc-item');
       const body = item.querySelector('.acc-body');

@@ -657,15 +657,27 @@ footer a {
     opacity: 0;
   }
 }
-/* Mobile Navigation Styles */
+
+/* ======================================== */
+/* --- Final Mobile Navigation Styles --- */
+/* ======================================== */
+
+/* 1. Base body style to prevent horizontal scroll */
+body {
+  overflow-x: hidden;
+}
+
+/* 2. Hamburger Button Styling */
 .nav-toggle {
-  display: none; /* Hidden by default on desktop */
+  display: none; /* Hidden on desktop */
+  position: absolute; /* Position relative to the header */
+  top: 18px;
+  right: 20px;
+  z-index: 1001; /* Must be on top of everything */
+  padding: 10px;
   background: transparent;
   border: 0;
   cursor: pointer;
-  padding: 10px;
-  position: relative;
-  z-index: 1001; /* Ensures it's above other header content */
 }
 
 .hamburger {
@@ -674,7 +686,7 @@ footer a {
   width: 24px;
   height: 2px;
   background: var(--text-color);
-  transition: transform 0.3s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
 .hamburger::before,
@@ -685,48 +697,35 @@ footer a {
   width: 100%;
   height: 2px;
   background: var(--text-color);
-  transition: transform 0.3s ease-in-out, top 0.3s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 
-.hamburger::before {
-  top: -8px;
-}
+.hamburger::before { top: -8px; }
+.hamburger::after { top: 8px; }
 
-.hamburger::after {
-  top: 8px;
-}
 
-/* Hamburger animation to 'X' */
-.nav-open .hamburger {
-  transform: rotate(45deg);
-}
-
-.nav-open .hamburger::before {
-  top: 0;
-  transform: rotate(90deg);
-}
-
-.nav-open .hamburger::after {
-  top: 0;
+/* 3. Mobile Menu Container */
+.nav-links {
+  transition: transform 0.3s ease-in-out; /* Smooth transition for desktop->mobile */
 }
 
 
-/* Media Query for Mobile */
+/* 4. Media Query for Mobile View */
 @media (max-width: 900px) {
+  /* Show the hamburger button */
   .nav-toggle {
-    display: block; /* Show hamburger on mobile */
+    display: block;
   }
 
+  /* Style the navigation menu for mobile */
   .nav-links {
     position: fixed;
     top: 0;
     right: 0;
-    height: 100vh;
     width: 100%;
-    background: rgba(255, 255, 255, 0.98);
-    backdrop-filter: blur(5px);
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
+    height: 100%;
+    background: white;
+    transform: translateX(100%); /* Start off-screen */
     z-index: 1000;
   }
 
@@ -742,16 +741,25 @@ footer a {
   .nav-links a {
     font-size: 1.5rem;
     color: var(--text-color);
+    font-weight: bold;
   }
+}
 
-  /* When the nav is open */
-  .nav-open .nav-links {
-    transform: translateX(0);
-  }
-  
-  .nav-open body {
-      overflow: hidden; /* Prevents scrolling when menu is open */
-  }
+/* 5. The "OPEN" State (Triggered by JavaScript) */
+.nav-open .nav-links {
+  transform: translateX(0); /* Slide the menu in */
+}
+
+/* Animate hamburger to an 'X' */
+.nav-open .hamburger { background: transparent; }
+.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
+.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
+
+/* Lock the page from scrolling when menu is open */
+.nav-open {
+  overflow: hidden;
+}
+
   /* Hero Section Mobile Styles */
 .hero {
   min-height: 90vh; /* Reduce height slightly */
