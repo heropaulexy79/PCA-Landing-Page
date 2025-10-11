@@ -790,3 +790,7 @@ footer a {
 }
 }
 
+/* Fix for Mobile Menu Scrolling Issue */
+body.nav-open {
+  overflow: hidden;
+}
