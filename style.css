@@ -706,6 +706,41 @@ html, body {
 
 /* 3. Mobile Media Query */
 @media (max-width: 900px) {
+
+/* --- Mobile Typography Adjustments --- */
+
+/* Reduce heading sizes */
+h1, .hero h1 {
+  font-size: 2.1rem; /* Was 2.5rem or 3rem */
+}
+
+h2, .section-title h2 {
+  font-size: 1.8rem; /* Was 2.2rem */
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+/* Adjust paragraph and lead text sizes */
+p, .muted {
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.hero p.lead {
+  font-size: 1rem;
+}
+
+/* Adjust button font size */
+.btn {
+  font-size: 0.9rem;
+}
+
   /* This shows the hamburger button */
   .nav-toggle {
     display: block;
