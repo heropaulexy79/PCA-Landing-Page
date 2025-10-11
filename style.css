@@ -658,22 +658,22 @@ footer a {
   }
 }
 
-/* ======================================== */
-/* --- Final Mobile Navigation Styles --- */
-/* ======================================== */
+/* =========================================== */
+/* --- CORRECTED Mobile Navigation --- */
+/* =========================================== */
 
-/* 1. Base body style to prevent horizontal scroll */
-body {
+/* 1. Prevent the initial horizontal scroll on the main page */
+html, body {
   overflow-x: hidden;
 }
 
-/* 2. Hamburger Button Styling */
+/* 2. Hamburger Button - Stays the same */
 .nav-toggle {
-  display: none; /* Hidden on desktop */
-  position: absolute; /* Position relative to the header */
+  display: none;
+  position: absolute;
   top: 18px;
   right: 20px;
-  z-index: 1001; /* Must be on top of everything */
+  z-index: 1001;
   padding: 10px;
   background: transparent;
   border: 0;
@@ -704,38 +704,41 @@ body {
 .hamburger::after { top: 8px; }
 
 
-/* 3. Mobile Menu Container */
-.nav-links {
-  transition: transform 0.3s ease-in-out; /* Smooth transition for desktop->mobile */
-}
-
-
-/* 4. Media Query for Mobile View */
+/* 3. Mobile Media Query */
 @media (max-width: 900px) {
-  /* Show the hamburger button */
+  /* This shows the hamburger button */
   .nav-toggle {
     display: block;
   }
 
-  /* Style the navigation menu for mobile */
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    background: white;
-    transform: translateX(100%); /* Start off-screen */
-    z-index: 1000;
-  }
+  /* This is the full-screen, white container for the menu */
+.nav-links {
+  position: fixed;
+  top: 0; /* Start from the very top of the screen */
+  left: 0;
+  width: 100%;
+  height: 50vh; /* Cover 100% of the screen's height */
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
 
+  /* This styles the list of links itself */
   .nav-links ul {
+    /* Resets any default browser styles for the list */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+    /* Organizes the links vertically */
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    gap: 30px;
+    align-items: center; /* Ensures text is centered if it wraps */
+    gap: 40px; /* Creates space between the links */
   }
 
   .nav-links a {
@@ -745,20 +748,23 @@ body {
   }
 }
 
-/* 5. The "OPEN" State (Triggered by JavaScript) */
-.nav-open .nav-links {
-  transform: translateX(0); /* Slide the menu in */
+/* 4. The "OPEN" State - Triggered by JavaScript */
+
+/* This rule now targets the body, which is more reliable */
+body.nav-open {
+  /* Lock the background page from scrolling */
+  overflow: hidden;
+}
+
+/* Slide the menu in when the body has the .nav-open class */
+body.nav-open .nav-links {
+  transform: translateX(0);
 }
 
 /* Animate hamburger to an 'X' */
-.nav-open .hamburger { background: transparent; }
-.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
-.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
-
-/* Lock the page from scrolling when menu is open */
-.nav-open {
-  overflow: hidden;
-}
+body.nav-open .hamburger { background: transparent; }
+body.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
+body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
 
   /* Hero Section Mobile Styles */
 .hero {
