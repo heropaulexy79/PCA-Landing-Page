@@ -543,7 +543,11 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
 
 /* --- Styles for Mobile Screens (max-width: 900px) --- */
 @media (max-width: 900px) {
-
+  .hero .hero-grid {
+    
+    display: block !important;
+  
+}
   /* General Layout */
   .mission-grid, .contact-grid {
     grid-template-columns: 1fr;
