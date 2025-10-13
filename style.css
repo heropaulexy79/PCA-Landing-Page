@@ -548,6 +548,12 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
     display: block !important;
   
 }
+#locations h4{
+  text-align: center;
+}
+.muted{
+  text-align: center;
+}
   /* General Layout */
   .mission-grid, .contact-grid {
     grid-template-columns: 1fr;
@@ -556,8 +562,8 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
   /* Mobile Typography */
   h1, .hero h1 { font-size: 2.1rem; }
   h2, .section-title h2 { font-size: 1.8rem; }
-  h3 { font-size: 1.2rem; }
-  h4 { font-size: 1rem; }
+  h3 { font-size: 1.2rem; text-align: center; }
+  h4 { font-size: 1rem; text-align: center; }
   p, .muted { font-size: 0.95rem; line-height: 1.6; }
   .hero p.lead { font-size: 1rem; }
   .btn { font-size: 0.9rem; }
