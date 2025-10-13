@@ -1,4 +1,6 @@
-/* Updated Styles for Physio Centers of Africa */
+/* ======================================== */
+/* --- Final, Complete & Corrected CSS --- */
+/* ======================================== */
 
 :root {
   --primary: #00ADB3;
@@ -17,13 +19,13 @@
   box-sizing: border-box;
 }
 
-html,
-body {
+html, body {
   height: 100%;
   margin: 0;
   font-family: 'Open Sans', system-ui, Arial;
   color: var(--text-color);
   background: #fff;
+  overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 a {
@@ -33,15 +35,15 @@ a {
 
 /* Header */
 header {
-  position: sticky; /* Make header sticky */
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100; /* Ensure it's on top */
+  z-index: 100;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
   backdrop-filter: saturate(120%) blur(8px);
   border-bottom: 1px solid rgba(6, 30, 50, 0.08);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05); /* Add shadow for depth */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
 .nav {
@@ -63,16 +65,11 @@ header {
   width: 130px;
   height: 46px;
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-weight: 700;
 }
 
 nav ul {
   display: flex;
-  gap: 24px; /* Increased gap */
+  gap: 24px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -82,29 +79,26 @@ nav a {
   font-weight: 600;
   transition: color 0.3s ease;
 }
+
 nav a:hover {
-    color: var(--accent);
+  color: var(--accent);
 }
 
 /* Hero */
 .hero {
-    min-height: 120vh;
-    display: grid;
-    align-items: center;
-    position: relative;
-    padding: 80px 130px 60px 50px;
-    overflow: hidden;
+  min-height: 120vh;
+  display: grid;
+  align-items: center;
+  position: relative;
+  padding: 80px 130px 60px 50px;
+  overflow: hidden;
 }
 
 .hero .bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
-  /* The z-index: -1 was causing the issue, so we remove it. */
 }
 
 .hero .hero-img {
@@ -114,19 +108,23 @@ nav a:hover {
   background-position: center;
   width: 100%;
   height: 100%;
-  z-index: 1; /* Base layer */
+  z-index: 1;
 }
 
 .hero .overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 173, 179, 0.4));
-  z-index: 2; /* Sits on top of the image */
+  z-index: 2;
 }
 
 .hero .hero-grid {
-    position: relative; /* Required to apply z-index */
-    z-index: 3; /* Puts the content on top of the overlay and image */
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  align-items: center;
 }
 
 .hero h1 {
@@ -143,53 +141,14 @@ nav a:hover {
   line-height: 1.6;
 }
 
-.cta {
-  display: flex;
-  gap: 12px;
-}
-
-.btn {
-  padding: 14px 22px; /* Increased padding */
-  border-radius: 10px;
-  border: 0;
-  cursor: pointer;
-  font-weight: 700;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
-  box-shadow: 0 4px 15px rgba(0, 173, 179, 0.3);
-}
-.btn-primary:hover {
-    background-color: #008f95;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 20px rgba(0, 173, 179, 0.4);
-}
-
-
-.btn-ghost {
-  background: transparent;
-  border: 2px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
-}
-.btn-ghost:hover {
-    background-color: rgba(255,255,255,0.1);
-    border-color: rgba(255,255,255,0.4);
-}
-
-
 /* Sections */
 section {
-  padding: 100px 4%; /* Increased padding */
+  padding: 100px 4%;
 }
 
 .section-title {
   max-width: var(--maxw);
-  margin: 0 auto 50px; /* Increased bottom margin */
-  align-items: center;
-  justify-content: space-between;
+  margin: 0 auto 50px;
   text-align: center;
 }
 
@@ -197,59 +156,48 @@ section {
   margin: 0;
   font-family: 'Poppins', sans-serif;
   letter-spacing: 0.2px;
-  font-size: 2.2rem; /* Increased font size */
+  font-size: 2.2rem;
   position: relative;
   color: var(--primary) !important;
   display: inline-block;
 }
 
-/* Underline Accent */
 .section-title h2::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -15px; /* Adjusted position */
+  bottom: -15px;
   transform: translateX(-50%);
-  width: 70px; /* Increased width */
-  height: 4px; /* Increased height */
+  width: 70px;
+  height: 4px;
   background-color: var(--primary);
   border-radius: 3px;
-}
-
-.mission-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 25px; /* Increased gap */
-  max-width: var(--maxw);
-  margin: 0 auto;
 }
 
 .card {
   background: var(--card);
   border-radius: 12px;
-  padding: 25px; /* Increased padding */
-  box-shadow: 0 10px 25px rgba(12, 30, 60, 0.08); /* Enhanced shadow */
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(12, 30, 60, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(12, 30, 60, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(12, 30, 60, 0.12);
 }
 
+.mission-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
 
-/* Products Section */
 /* Products Section */
 #products {
-  padding: 100px 4%;
-  background: var(--muted-bg); /* Use a muted background */
-  text-align: center;
-}
-
-#products .section-title h2 {
-  color: var(--primary) !important;
-  font-weight: 700;
-  margin-bottom: 50px;
-  position: relative;
+  background: var(--muted-bg);
 }
 
 .products {
@@ -257,24 +205,19 @@ section {
   flex-wrap: wrap;
   justify-content: center;
   gap: 25px;
-  max-width: 1000px; /* Container width is key */
+  max-width: 1000px;
   margin: 0 auto;
 }
 
 .product-card {
-  /* This is the important change: */
-  flex: 1 1 280px; /* We set a larger base size */
-
-  max-width: 300px; /* And a corresponding max-width */
+  flex: 1 1 280px;
+  max-width: 300px;
   background: #fff;
   padding: 40px 25px;
   border-radius: 20px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
   transition: all 0.35s ease;
   cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -286,7 +229,6 @@ section {
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
 }
 
-/* Icon circle */
 .product-card .icon {
   width: 80px;
   height: 80px;
@@ -308,13 +250,10 @@ section {
   box-shadow: 0 4px 12px rgba(0, 173, 179, 0.25);
 }
 
-/* Title & Text */
 .product-card h4 {
   font-size: 1.15rem;
-  color: var(--text-color);
   font-weight: 700;
   margin-bottom: 8px;
-  text-align: center;
   transition: color 0.3s ease;
 }
 
@@ -324,13 +263,10 @@ section {
 
 .product-card .muted {
   font-size: 0.9rem;
-  color: var(--text-muted);
   line-height: 1.5;
-  text-align: center;
   max-width: 85%;
 }
 
-/* Alternating Icon Colors */
 .product-card:nth-child(odd) .icon {
   background: rgba(9, 201, 65, 0.1);
 }
@@ -338,79 +274,11 @@ section {
 .product-card:nth-child(odd):hover .icon {
   background: rgba(9, 201, 65, 0.15);
   box-shadow: 0 4px 12px rgba(9, 201, 65, 0.25);
-}
-
-/* Fade-in Animation */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Button Ripple */
-.btn {
-  position: relative;
-  overflow: hidden;
-}
-
-.btn::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  background: rgba(255, 255, 255, 0.4);
-  width: 100px;
-  height: 100px;
-  opacity: 0;
-  transition: transform 0.6s, opacity 1s;
-  pointer-events: none;
-}
-
-.btn:active::after {
-  transform: scale(2);
-  opacity: 1;
-  transition: 0s;
-}
-
-/* Alternating Icon Colors */
-.product-card:nth-child(odd) .icon {
-  background: rgba(9, 201, 65, 0.1);
-}
-
-.product-card:nth-child(odd):hover .icon {
-  background: rgba(9, 201, 65, 0.15);
-  box-shadow: 0 4px 12px rgba(9, 201, 65, 0.25);
-}
-
-/* Misc */
-.muted {
-  color: var(--text-muted);
-}
-
-.pill {
-  display: inline-block;
-  padding: 6px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.2);
-  color: #fff;
-  font-weight: 600;
-  font-size: 14px;
 }
 
 /* Services Section */
 .services-section {
-  padding: 100px 4%;
-  background: #fff;
-}
-
-.services-section h2 {
-  text-align: center;
-  margin-bottom: 40px;
+  position: relative;
 }
 
 .service-card {
@@ -437,102 +305,74 @@ section {
 
 .service-card .muted {
   font-size: 14px;
-  color: var(--text-muted);
-}
-
-/* Style navigation buttons */
-.services-section {
-  position: relative; /* Make the section a positioning context for the buttons */
 }
 
 .services-slider .swiper-button-next,
 .services-slider .swiper-button-prev {
   position: absolute;
-  top: 50%; /* Position halfway down */
-  transform: translateY(-50%); /* Vertically center the button */
-  width: 45px; /* Increase size */
-  height: 45px; /* Increase size */
-  background: #fff; /* White background */
-  color: var(--primary); /* Use primary color for the arrow */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 45px;
+  height: 45px;
+  background: #fff;
+  color: var(--primary);
   border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Add a subtle shadow */
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   z-index: 10;
   transition: all 0.3s ease;
 }
 
-.services-slider .swiper-button-prev {
-  left: -10px; /* Position outside to the left */
-}
+.services-slider .swiper-button-prev { left: -10px; }
+.services-slider .swiper-button-next { right: -10px; }
 
-.services-slider .swiper-button-next {
-  right: -10px; /* Position outside to the right */
-}
-
-/* Optional: hover effect */
 .services-slider .swiper-button-next:hover,
 .services-slider .swiper-button-prev:hover {
   background: var(--primary);
   color: #fff;
-  transform: translateY(-50%) scale(1.05); /* Add a slight scale effect */
+  transform: translateY(-50%) scale(1.05);
 }
 
-.swiper-button-next:after, 
+.swiper-button-next:after,
 .swiper-button-prev:after {
-    font-size: 16px !important; /* Adjust arrow size */
-    font-weight: 700;
+  font-size: 16px !important;
+  font-weight: 700;
 }
 
 .services-slider .swiper-slide {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
   height: 350px;
-  box-sizing: border-box;
-  background: #fff;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.services-slider .swiper-slide img {
-  width: 100%;
-  height: 60%;
-  object-fit: cover;
-  display: block;
+/* Locations Section */
+#locations {
+  color: #fff;
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
 }
 
-.services-slider .slide-title {
-  padding: 10px;
-  font-weight: 600;
-  font-size: 14px;
-  text-align: center;
-  color: #333;
-  flex: 1;
+#locations .container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 4%;
 }
 
-/* locations */
+#locations h2, #locations .muted, #locations h4 {
+  color: #fff !important;
+}
+
+#locations a {
+  color: var(--secondary);
+  font-weight: bold;
+}
+
 .locations {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
   max-width: var(--maxw);
-  margin: 0 auto
+  margin: 0 auto;
 }
-#locations {
-    color: #fff;
-}
-#locations h2, #locations .muted, #locations h4 {
-    color: #fff !important;
-}
-#locations a {
-    color: var(--secondary);
-    font-weight: bold;
-    font-size: 12px !important;
-}
+
 .loc-card {
   padding: 20px;
   border-radius: 10px;
@@ -540,68 +380,100 @@ section {
   backdrop-filter: blur(5px);
 }
 
-.loc-card a {
-  display: inline-block;
-  margin-top: 10px
+.map-container {
+    width: 100%;
+    line-height: 0;
 }
 
-/* contact */
+/* Contact Section */
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr 420px;
   gap: 20px;
   max-width: var(--maxw);
-  margin: 0 auto
+  margin: 0 auto;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: 10px;
 }
 
-input,
-textarea,
-select {
+input, textarea, select {
   padding: 12px;
   border-radius: 8px;
   border: 1px solid rgba(6, 30, 50, 0.15);
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
 }
+
 input:focus, textarea:focus, select:focus {
-    outline: 2px solid var(--primary);
-    border-color: transparent;
+  outline: 2px solid var(--primary);
+  border-color: transparent;
 }
 
 textarea {
-  min-height: 120px
+  min-height: 120px;
 }
 
-.float-book {
-  position: fixed;
-  right: 18px;
-  bottom: 18px;
-  background: var(--accent);
-  color: #fff;
-  padding: 12px 14px;
-  border-radius: 999px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  z-index: 70;
+/* General UI Elements */
+.btn {
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 0;
   cursor: pointer;
-  transition: transform 0.3s ease;
+  font-weight: 700;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
-.float-book:hover {
-    transform: scale(1.05);
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 173, 179, 0.3);
+}
+
+.btn-primary:hover {
+  background-color: #008f95;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 173, 179, 0.4);
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.btn-ghost:hover {
+  background-color: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.4);
+}
+
+.cta {
+  display: flex;
+  gap: 12px;
+}
+
+.muted { color: var(--text-muted); }
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 footer {
   background: #062032;
   color: #d6eef5;
-  padding: 28px 20px
+  padding: 28px 20px;
 }
 
 .footer-inner {
@@ -609,65 +481,19 @@ footer {
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  align-items: center
+  align-items: center;
 }
+
 footer a {
-    color: #d6eef5;
-    text-decoration: underline;
-}
-
-/* responsive */
-@media (max-width: 900px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-  }
-  .hero {
-      text-align: center;
-  }
-  .cta {
-      justify-content: center;
-  }
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-  .contact-grid {
-    grid-template-columns: 1fr
-  }
-  .mission-grid {
-    grid-template-columns: 1fr
-  }
-}
-
-/* Ripple effect for buttons */
-.btn .ripple {
-  position: absolute;
-  border-radius: 50%;
-  transform: scale(0);
-  background: rgba(255, 255, 255, 0.4);
-  animation: rippleEffect 0.6s linear;
-  pointer-events: none;
-  width: 100px;
-  height: 100px;
-  opacity: 1;
-}
-
-@keyframes rippleEffect {
-  to {
-    transform: scale(2.5);
-    opacity: 0;
-  }
+  color: #d6eef5;
+  text-decoration: underline;
 }
 
 /* =========================================== */
-/* --- CORRECTED Mobile Navigation --- */
+/* --- MOBILE & RESPONSIVE STYLES --- */
 /* =========================================== */
 
-/* 1. Prevent the initial horizontal scroll on the main page */
-html, body {
-  overflow-x: hidden;
-}
-
-/* 2. Hamburger Button - Stays the same */
+/* --- Mobile Hamburger Menu --- */
 .nav-toggle {
   display: none;
   position: absolute;
@@ -703,143 +529,99 @@ html, body {
 .hamburger::before { top: -8px; }
 .hamburger::after { top: 8px; }
 
+/* Menu "OPEN" State Styles */
+body.nav-open {
+  overflow: hidden;
+}
+body.nav-open .nav-links {
+  transform: translateX(0);
+}
+body.nav-open .hamburger { background: transparent; }
+body.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
+body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
 
-/* 3. Mobile Media Query */
+
+/* --- Styles for Mobile Screens (max-width: 900px) --- */
 @media (max-width: 900px) {
 
-/* --- Mobile Typography Adjustments --- */
-
-/* Reduce heading sizes */
-h1, .hero h1 {
-  font-size: 2.1rem; /* Was 2.5rem or 3rem */
-}
-
-h2, .section-title h2 {
-  font-size: 1.8rem; /* Was 2.2rem */
-}
-
-h3 {
-  font-size: 1.2rem;
-}
-
-h4 {
-  font-size: 1rem;
-}
-
-/* Adjust paragraph and lead text sizes */
-p, .muted {
-  font-size: 0.95rem;
-  line-height: 1.6;
-}
-
-.hero p.lead {
-  font-size: 1rem;
-}
-
-/* Adjust button font size */
-.btn {
-  font-size: 0.9rem;
-}
-
-  /* This shows the hamburger button */
-  .nav-toggle {
-    display: block;
+  /* General Layout */
+  .mission-grid, .contact-grid {
+    grid-template-columns: 1fr;
   }
 
-  /* This is the full-screen, white container for the menu */
-.nav-links {
-  position: fixed;
-  top: 0; /* Start from the very top of the screen */
-  left: 0;
-  width: 100%;
-  height: 50vh; /* Cover 100% of the screen's height */
-  background: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transform: translateX(100%);
-  transition: transform 0.3s ease-in-out;
-  z-index: 1000;
-}
+  /* Mobile Typography */
+  h1, .hero h1 { font-size: 2.1rem; }
+  h2, .section-title h2 { font-size: 1.8rem; }
+  h3 { font-size: 1.2rem; }
+  h4 { font-size: 1rem; }
+  p, .muted { font-size: 0.95rem; line-height: 1.6; }
+  .hero p.lead { font-size: 1rem; }
+  .btn { font-size: 0.9rem; }
 
-  /* This styles the list of links itself */
+  /* Mobile Hamburger Menu */
+  .nav-toggle { display: block; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 1000;
+  }
   .nav-links ul {
-    /* Resets any default browser styles for the list */
     list-style: none;
     padding: 0;
     margin: 0;
-    
-    /* Organizes the links vertically */
     display: flex;
     flex-direction: column;
-    align-items: center; /* Ensures text is centered if it wraps */
-    gap: 40px; /* Creates space between the links */
+    align-items: center;
+    gap: 40px;
   }
-
   .nav-links a {
     font-size: 1.5rem;
     color: var(--text-color);
     font-weight: bold;
   }
-}
 
-/* 4. The "OPEN" State - Triggered by JavaScript */
-
-/* This rule now targets the body, which is more reliable */
-body.nav-open {
-  /* Lock the background page from scrolling */
-  overflow: hidden;
-}
-
-/* Slide the menu in when the body has the .nav-open class */
-body.nav-open .nav-links {
-  transform: translateX(0);
-}
-
-/* Animate hamburger to an 'X' */
-body.nav-open .hamburger { background: transparent; }
-body.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
-body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
-
-  /* Hero Section Mobile Styles */
-.hero {
-  min-height: 90vh; /* Reduce height slightly */
-  padding: 80px 25px 40px; /* Adjust padding for mobile */
-  text-align: center; /* Center all text */
-}
-
-.hero-grid {
-  grid-template-columns: 1fr; /* Stack the columns */
-  gap: 30px; /* Adjust the gap for stacked items */
-}
-
-.hero h1 {
-  font-size: 2.2rem; /* Reduce headline size */
-}
-
-.hero p.lead {
-  font-size: 1rem; /* Adjust lead paragraph size */
-  margin-bottom: 20px;
-}
-
-.cta {
-  justify-content: center; /* Center the buttons */
-  flex-direction: column; /* Stack the buttons */
-  gap: 15px;
-  align-items: center;
-}
-
-.cta .btn {
+  /* Mobile Hero Section */
+  .hero {
+    min-height: 90vh;
+    padding: 80px 25px 40px;
+    text-align: center;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .cta {
+    justify-content: center;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+  }
+  .cta .btn {
     width: 100%;
-    max-width: 300px; /* Give buttons a max-width */
+    max-width: 300px;
+  }
+  .hero .card {
+    text-align: left;
+  }
 }
 
-.hero .card {
-    text-align: left; /* Keep card text left-aligned */
-}
-}
-
-/* Fix for Mobile Menu Scrolling Issue */
-body.nav-open {
-  overflow: hidden;
+/* --- Styles for Desktop Screens (min-width: 901px) --- */
+@media (min-width: 901px) {
+  /* Desktop Hero Section Alignment */
+  .hero-grid > div:first-child {
+    text-align: left;
+  }
+  .cta {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
 }
