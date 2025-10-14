@@ -33,22 +33,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Simple contact form handler (no backend) — shows a success state and resets form
-    function submitForm(e){
-      e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      if(!name || !email || !phone){ alert('Please complete the required fields.'); return }
-      // sim: show a success message
-      const btn = document.querySelector('#contactForm button');
-      const prev = btn.innerHTML;
-      btn.disabled = true; btn.innerHTML = 'Sending...';
-      setTimeout(()=>{
-        btn.disabled = false; btn.innerHTML = prev;
-        alert('Thanks ' + name + '! Your request has been received. We will contact you shortly.');
-        document.getElementById('contactForm').reset();
-      },900);
-    }
+    // function submitForm(e){
+    //   e.preventDefault();
+    //   const name = document.getElementById('name').value.trim();
+    //   const email = document.getElementById('email').value.trim();
+    //   const phone = document.getElementById('phone').value.trim();
+    //   if(!name || !email || !phone){ alert('Please complete the required fields.'); return }
+    //   // sim: show a success message
+    //   const btn = document.querySelector('#contactForm button');
+    //   const prev = btn.innerHTML;
+    //   btn.disabled = true; btn.innerHTML = 'Sending...';
+    //   setTimeout(()=>{
+    //     btn.disabled = false; btn.innerHTML = prev;
+    //     alert('Thanks ' + name + '! Your request has been received. We will contact you shortly.');
+    //     document.getElementById('contactForm').reset();
+    //   },900);
+    // }
 
     // Smooth scroll for nav links
     document.querySelectorAll('nav a[href^="#"]').forEach(a=>{

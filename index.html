@@ -248,11 +248,12 @@
       <div class="contact-grid">
         <div>
           <p class="muted">To book an appointment, request a home visit, or enquire about PCA Academy training and equipment, use the form or reach out directly.</p>
-          <form id="contactForm" onsubmit="submitForm(event)">
-            <input type="text" id="name" placeholder="Full name" required>
-            <input type="email" id="email" placeholder="Email address" required>
-            <input type="tel" id="phone" placeholder="Phone number" required>
-            <select id="service">
+          <!-- <form id="contactForm" onsubmit="submitForm(event)"> -->
+          <form id="contactForm" action="https://formspree.io/f/xanplzvp" method="POST">
+            <input type="text" id="name" name="name" placeholder="Full name" required>
+            <input type="email" id="email" name="email" placeholder="Email address" required>
+            <input type="tel" id="phone" name="phone" placeholder="Phone number" required>
+            <select id="service" name="service_of_interest">
               <option value="">-- Service of interest --</option>
               <option>Physiotherapy</option>
               <option>Rehabilitation</option>
@@ -260,7 +261,7 @@
               <option>PCA Academy - Training</option>
               <option>Equipment Sales</option>
             </select>
-            <textarea id="message" placeholder="Brief message or current concern"></textarea>
+            <textarea id="message" name="message" placeholder="Brief message or current concern"></textarea>
             <button class="btn btn-primary" type="submit">Send request</button>
           </form>
         </div>
