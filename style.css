@@ -544,6 +544,13 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
     padding-bottom: 100px;
 }
 
+.loc-email {
+    font-size: 14px;
+}
+.tel {
+    font-size: 14px !important;
+}
+
 /* --- Styles for Mobile Screens (max-width: 900px) --- */
 @media (max-width: 900px) {
   .muted2{
