@@ -5,7 +5,7 @@
 :root {
   --primary: #00ADB3;
   --accent: #09C941;
-  --secondary: #FFC107; /* New accent color */
+  --secondary: #ffffff; /* New accent color */
   --text-color: #333; /* Softer text color */
   --text-muted: #666;
   --muted-bg: #f5f7fa;
@@ -540,12 +540,23 @@ body.nav-open .hamburger { background: transparent; }
 body.nav-open .hamburger::before { transform: rotate(45deg) translate(5px, 5px); }
 body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px); }
 
+#locations {
+    padding-bottom: 100px;
+}
 
 /* --- Styles for Mobile Screens (max-width: 900px) --- */
 @media (max-width: 900px) {
+  .muted2{
+    display: flex !important;
+    justify-content: center !important;
+  }
+
   #locations {
     color: #fff;
-    text-align: center ;
+    text-align: center;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 80px;
 }
   .hero .hero-grid {
     
