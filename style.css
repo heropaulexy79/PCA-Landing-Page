@@ -657,3 +657,16 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
     justify-content: flex-start;
   }
 }
+
+/* --- Fix for Location Card Alignment --- */
+
+.loc-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* Make the card fill the entire grid space */
+}
+
+.loc-card a[target="_blank"] {
+  margin-top: auto; /* This pushes the link to the bottom */
+  margin-bottom: 10px; /* Adds a little space at the bottom */
+}
