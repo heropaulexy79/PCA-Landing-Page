@@ -1,16 +1,15 @@
 import { GoogleAuth } from "google-auth-library";
-import dotenv from "dotenv";
-
-dotenv.config(); // Load .env locally
 
 export async function handler(event, context) {
-    console.log("GCP_PROJECT:", process.env.GCP_PROJECT);
-  console.log("JSON length:", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON?.length);
   try {
-    const { message } = JSON.parse(event.body);
+    console.log("GCP_PROJECT:", process.env.GCP_PROJECT?.length);
+    console.log("GOOGLE_APPLICATION_CREDENTIALS_JSON:", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON?.length);
+
+    if (!process.env.GCP_PROJECT || !process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
+      return { statusCode: 500, body: "Env variables missing or undefined" };
+    }
 
     const creds = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
-
 
     const auth = new GoogleAuth({
       credentials: creds,
@@ -21,22 +20,19 @@ export async function handler(event, context) {
 
     const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${process.env.GCP_PROJECT}/locations/us-central1/publishers/google/models/text-bison-001:generateText`;
 
-    const aiResponse = await client.request({
+    const { data } = await client.request({
       url,
       method: "POST",
       data: {
-        text: `The user asks: "${message}". Respond like a helpful customer support agent.`,
+        text: "Hello world!",
         temperature: 0.7,
         maxOutputTokens: 256,
       },
     });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ aiReply: aiResponse.data.generatedText }),
-    };
+    return { statusCode: 200, body: JSON.stringify({ aiReply: data.generatedText }) };
   } catch (err) {
-    console.error(err);
-    return { statusCode: 500, body: JSON.stringify({ error: "AI request failed" }) };
+    console.error("Function error:", err);
+    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
   }
 }
