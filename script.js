@@ -153,12 +153,6 @@ async function sendMessage() {
 
   messages.scrollTop = messages.scrollHeight;
 
-parts: [{
-  text: `You are a helpful assistant for Physio Centers of Africa. 
-  Help users book physiotherapy, rehabilitation, home care or training.
-  User message: ${message}`
-}]
-
 }
 document.getElementById("ai-text").addEventListener("keypress", function(e) {
   if (e.key === "Enter") {
