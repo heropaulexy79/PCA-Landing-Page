@@ -1,20 +1,18 @@
 exports.handler = async function (event) {
   try {
+    console.log("Function started");
+
     if (!event.body) {
       return {
         statusCode: 400,
-        body: JSON.stringify({ error: "No body received" }),
+        body: JSON.stringify({ error: "Missing request body" }),
       };
     }
 
     const { message } = JSON.parse(event.body);
+    console.log("User message:", message);
 
-    if (!message) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({ error: "Message is missing" }),
-      };
-    }
+    console.log("API KEY EXISTS:", !!process.env.GEMINI_API_KEY);
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
@@ -28,9 +26,9 @@ exports.handler = async function (event) {
             {
               parts: [
                 {
-                  text: `You are an assistant for Physio Centers of Africa. Help visitors understand services, answer questions, and guide them to book appointments.
+                  text: `You are an AI assistant for Physio Centers of Africa. Respond naturally.
 
-User message: ${message}`,
+User: ${message}`,
                 },
               ],
             },
@@ -41,28 +39,18 @@ User message: ${message}`,
 
     const data = await response.json();
 
-    console.log("Gemini response:", JSON.stringify(data));
+    console.log("Gemini full response:", JSON.stringify(data));
 
-    if (!response.ok) {
-      return {
-        statusCode: 500,
-        body: JSON.stringify({
-          error: "Gemini API error",
-          details: data,
-        }),
-      };
-    }
-
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I'm here to help! Could you rephrase that?";
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ reply }),
+      body: JSON.stringify({
+        reply: reply || "AI did not return a message",
+      }),
     };
   } catch (error) {
-    console.log("Function error:", error);
+    console.log("ERROR:", error);
 
     return {
       statusCode: 500,
