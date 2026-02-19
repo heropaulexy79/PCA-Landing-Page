@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 dotenv.config(); // Load .env locally
 
 export async function handler(event, context) {
+    console.log("GCP_PROJECT:", process.env.GCP_PROJECT);
+  console.log("JSON length:", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON?.length);
   try {
     const { message } = JSON.parse(event.body);
 
