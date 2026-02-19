@@ -122,8 +122,18 @@ chatButton.onclick = () => {
 };
 
 async function sendMessage() {
-  const input = document.getElementById("chat-input");
-  const message = input.value;
+  const input = document.getElementById("ai-text");
+  const messages = document.getElementById("ai-messages");
+
+  const message = input.value.trim();
+  if (!message) return;
+
+  // Show user message
+  const userMsg = document.createElement("div");
+  userMsg.textContent = "You: " + message;
+  messages.appendChild(userMsg);
+
+  input.value = "";
 
   const response = await fetch("/.netlify/functions/chat", {
     method: "POST",
@@ -137,7 +147,21 @@ async function sendMessage() {
 
   const data = await response.json();
 
-  document.getElementById("chat-response").innerText = data.reply;
+  const botMsg = document.createElement("div");
+  botMsg.textContent = "AI: " + (data.reply || "No response");
+  messages.appendChild(botMsg);
 
-  input.value = "";
+  messages.scrollTop = messages.scrollHeight;
+
+parts: [{
+  text: `You are a helpful assistant for Physio Centers of Africa. 
+  Help users book physiotherapy, rehabilitation, home care or training.
+  User message: ${message}`
+}]
+
 }
+document.getElementById("ai-text").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    sendMessage();
+  }
+});
