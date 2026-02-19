@@ -1,38 +1,40 @@
-import { GoogleAuth } from "google-auth-library";
-
-export async function handler(event, context) {
+export async function handler(event) {
   try {
-    console.log("GCP_PROJECT:", process.env.GCP_PROJECT?.length);
-    console.log("GOOGLE_APPLICATION_CREDENTIALS_JSON:", process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON?.length);
+    const { message } = JSON.parse(event.body);
 
-    if (!process.env.GCP_PROJECT || !process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON) {
-      return { statusCode: 500, body: "Env variables missing or undefined" };
-    }
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" +
+        process.env.GEMINI_API_KEY,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: message }],
+            },
+          ],
+        }),
+      }
+    );
 
-    const creds = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+    const data = await response.json();
 
-    const auth = new GoogleAuth({
-      credentials: creds,
-      scopes: "https://www.googleapis.com/auth/cloud-platform",
-    });
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "Sorry, I couldn't respond.";
 
-    const client = await auth.getClient();
-
-    const url = `https://us-central1-aiplatform.googleapis.com/v1/projects/${process.env.GCP_PROJECT}/locations/us-central1/publishers/google/models/text-bison-001:generateText`;
-
-    const { data } = await client.request({
-      url,
-      method: "POST",
-      data: {
-        text: "Hello world!",
-        temperature: 0.7,
-        maxOutputTokens: 256,
-      },
-    });
-
-    return { statusCode: 200, body: JSON.stringify({ aiReply: data.generatedText }) };
-  } catch (err) {
-    console.error("Function error:", err);
-    return { statusCode: 500, body: JSON.stringify({ error: err.message }) };
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ reply }),
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "AI error" }),
+    };
   }
 }
