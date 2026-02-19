@@ -112,3 +112,10 @@ const swiper = new Swiper('.services-slider', {
     1024: { slidesPerView: 4, spaceBetween: 20 }
   }
 });
+
+const btn = document.getElementById("ai-agent-btn");
+const box = document.getElementById("ai-agent-box");
+
+btn.onclick = () => {
+  box.style.display = box.style.display === "flex" ? "none" : "flex";
+};
