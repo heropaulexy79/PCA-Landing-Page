@@ -3,5 +3,3 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["google-auth-library"]
-  node_version = "20"
