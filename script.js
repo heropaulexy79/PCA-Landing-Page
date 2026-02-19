@@ -113,9 +113,31 @@ const swiper = new Swiper('.services-slider', {
   }
 });
 
-const btn = document.getElementById("ai-agent-btn");
-const box = document.getElementById("ai-agent-box");
+const chatButton = document.getElementById("chat-button");
+const chatBox = document.getElementById("chat-box");
 
-btn.onclick = () => {
-  box.style.display = box.style.display === "flex" ? "none" : "flex";
+chatButton.onclick = () => {
+  chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+  chatBox.style.flexDirection = "column";
 };
+
+async function sendAI() {
+  const input = document.getElementById("ai-text");
+  const messages = document.getElementById("ai-messages");
+  
+  const text = input.value;
+  if (!text) return;
+
+  messages.innerHTML += `<div><b>You:</b> ${text}</div>`;
+  input.value = "";
+
+  const res = await fetch("/.netlify/functions/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: text })
+  });
+
+  const data = await res.json();
+  messages.innerHTML += `<div><b>AI:</b> ${data.aiReply}</div>`;
+  messages.scrollTop = messages.scrollHeight;
+}

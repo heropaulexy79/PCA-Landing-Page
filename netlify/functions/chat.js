@@ -1,10 +1,16 @@
 import { GoogleAuth } from "google-auth-library";
+import dotenv from "dotenv";
+
+dotenv.config(); // Load .env locally
 
 export async function handler(event, context) {
   try {
     const { message } = JSON.parse(event.body);
 
+    const creds = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON);
+
     const auth = new GoogleAuth({
+      credentials: creds,
       scopes: "https://www.googleapis.com/auth/cloud-platform",
     });
 
