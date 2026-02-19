@@ -121,23 +121,23 @@ chatButton.onclick = () => {
   chatBox.style.flexDirection = "column";
 };
 
-async function sendAI() {
-  const input = document.getElementById("ai-text");
-  const messages = document.getElementById("ai-messages");
-  
-  const text = input.value;
-  if (!text) return;
+async function sendMessage() {
+  const input = document.getElementById("chat-input");
+  const message = input.value;
 
-  messages.innerHTML += `<div><b>You:</b> ${text}</div>`;
-  input.value = "";
-
-  const res = await fetch("/.netlify/functions/chat", {
+  const response = await fetch("/.netlify/functions/chat", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: text })
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message: message,
+    }),
   });
 
-  const data = await res.json();
-  messages.innerHTML += `<div><b>AI:</b> ${data.aiReply}</div>`;
-  messages.scrollTop = messages.scrollHeight;
+  const data = await response.json();
+
+  document.getElementById("chat-response").innerText = data.reply;
+
+  input.value = "";
 }
