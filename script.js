@@ -113,49 +113,59 @@ const swiper = new Swiper('.services-slider', {
   }
 });
 
-const chatButton = document.getElementById("chat-button");
-const chatBox = document.getElementById("chat-box");
+const input = document.getElementById("userInput");
+const sendBtn = document.getElementById("sendBtn");
+const chat = document.getElementById("chatMessages");
 
-chatButton.onclick = () => {
-  chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-  chatBox.style.flexDirection = "column";
-};
+function addMessage(text, type) {
+  const msg = document.createElement("div");
+  msg.className = `message ${type}`;
+  msg.textContent = text;
+  chat.appendChild(msg);
+  chat.scrollTop = chat.scrollHeight;
+  return msg;
+}
 
 async function sendMessage() {
-  const input = document.getElementById("ai-text");
-  const messages = document.getElementById("ai-messages");
+  const text = input.value.trim();
+  if (!text) return;
 
-  const message = input.value.trim();
-  if (!message) return;
-
-  // Show user message
-  const userMsg = document.createElement("div");
-  userMsg.textContent = "You: " + message;
-  messages.appendChild(userMsg);
-
+  addMessage(text, "user");
   input.value = "";
 
-  const response = await fetch("/.netlify/functions/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message: message,
-    }),
-  });
+  const loading = addMessage("Typing...", "ai");
 
-  const data = await response.json();
+  try {
+    const res = await fetch("/.netlify/functions/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ message: text })
+    });
 
-  const botMsg = document.createElement("div");
-  botMsg.textContent = "AI: " + (data.reply || "No response");
-  messages.appendChild(botMsg);
+    const data = await res.json();
 
-  messages.scrollTop = messages.scrollHeight;
+    loading.remove();
 
-}
-document.getElementById("ai-text").addEventListener("keypress", function(e) {
-  if (e.key === "Enter") {
-    sendMessage();
+    if (!res.ok || data.error) {
+      addMessage(
+        "AI service is currently unavailable. Please try again.",
+        "error"
+      );
+      return;
+    }
+
+    addMessage(data.reply || "No response received.", "ai");
+
+  } catch (err) {
+    loading.remove();
+    addMessage("Connection error. Check server logs.", "error");
   }
+}
+
+sendBtn.onclick = sendMessage;
+
+input.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") sendMessage();
 });
