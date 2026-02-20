@@ -313,23 +313,10 @@
 
 <button id="chat-button">💬</button>
 
-<div class="chat-app">
-  <header class="chat-header">
-    <h2>AI Assistant</h2>
-    <span class="status">Online</span>
-  </header>
-
-  <div id="chatMessages" class="chat-messages"></div>
-
-  <div class="chat-input-area">
-    <input
-      id="userInput"
-      type="text"
-      placeholder="Ask something..."
-      autocomplete="off"
-    />
-    <button id="sendBtn">Send</button>
-  </div>
+<div id="chat-box">
+  <div id="ai-messages"></div>
+  <input id="ai-text" type="text" placeholder="Type your message..." />
+  <button onclick="sendMessage()">Send</button>
 </div>
   </main>
 

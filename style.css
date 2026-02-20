@@ -673,75 +673,40 @@ body.nav-open .hamburger::after { transform: rotate(-45deg) translate(7px, -6px)
   margin-bottom: 10px; /* Adds a little space at the bottom */
 }
 
-.chat-app {
-  width: 420px;
-  height: 650px;
-  background: #020617;
-  border-radius: 16px;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-}
-
-.chat-header {
-  padding: 16px;
-  background: #020617;
-  border-bottom: 1px solid #1e293b;
-  display: flex;
-  justify-content: space-between;
-}
-
-.status {
-  font-size: 12px;
-  color: #22c55e;
-}
-
-.chat-messages {
-  flex: 1;
-  padding: 16px;
-  overflow-y: auto;
-}
-
-.message {
-  margin-bottom: 14px;
-  max-width: 80%;
-  padding: 10px 14px;
-  border-radius: 12px;
-  line-height: 1.4;
-}
-
-.user {
-  background: #2563eb;
-  margin-left: auto;
-}
-
-.ai {
-  background: #1e293b;
-}
-
-.error {
-  background: #7f1d1d;
-}
-
-.chat-input-area {
-  display: flex;
-  border-top: 1px solid #1e293b;
-}
-
-.chat-input-area input {
-  flex: 1;
-  padding: 14px;
-  border: none;
-  outline: none;
-  background: #020617;
-  color: white;
-}
-
-.chat-input-area button {
-  background: #2563eb;
-  border: none;
-  padding: 0 20px;
-  cursor: pointer;
-  color: white;
-}
+#chat-button {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0072ff;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 28px;
+      border: none;
+      cursor: pointer;
+    }
+    #chat-box {
+      display: none;
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 300px;
+      height: 400px;
+      border: 1px solid #ccc;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-radius: 8px;
+      padding: 10px;
+      flex-direction: column;
+    }
+    #ai-messages {
+      overflow-y: auto;
+      height: 330px;
+      padding-bottom: 10px;
+    }
+    #ai-text {
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
