@@ -113,49 +113,142 @@ const swiper = new Swiper('.services-slider', {
   }
 });
 
+// const chatButton = document.getElementById("chat-button");
+// const chatBox = document.getElementById("chat-box");
+
+// chatButton.onclick = () => {
+//   chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+//   chatBox.style.flexDirection = "column";
+// };
+
+// async function sendMessage() {
+//   const input = document.getElementById("ai-text");
+//   const messages = document.getElementById("ai-messages");
+
+//   const message = input.value.trim();
+//   if (!message) return;
+
+//   // Show user message
+//   const userMsg = document.createElement("div");
+//   userMsg.textContent = "You: " + message;
+//   messages.appendChild(userMsg);
+
+//   input.value = "";
+
+//   const response = await fetch("/.netlify/functions/chat", {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       message: message,
+//     }),
+//   });
+
+//   const data = await response.json();
+
+//   const botMsg = document.createElement("div");
+//   botMsg.textContent = "AI: " + (data.reply || "No response");
+//   messages.appendChild(botMsg);
+
+//   messages.scrollTop = messages.scrollHeight;
+
+// }
+// document.getElementById("ai-text").addEventListener("keypress", function(e) {
+//   if (e.key === "Enter") {
+//     sendMessage();
+//   }
+// });
+
+// Toggle chat widget
 const chatButton = document.getElementById("chat-button");
 const chatBox = document.getElementById("chat-box");
+const messages = document.getElementById("ai-messages");
+const input = document.getElementById("ai-text");
 
 chatButton.onclick = () => {
-  chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
+  chatBox.classList.toggle("open");
+  chatBox.style.display = chatBox.classList.contains("open") ? "flex" : "none";
   chatBox.style.flexDirection = "column";
+  input.focus();
 };
 
-async function sendMessage() {
-  const input = document.getElementById("ai-text");
-  const messages = document.getElementById("ai-messages");
+// Auto scroll helper
+function scrollToBottom() {
+  messages.scrollTop = messages.scrollHeight;
+}
 
+// Create message bubble
+function createBubble(text, type = "ai") {
+  const bubble = document.createElement("div");
+  bubble.classList.add("chat-bubble", type);
+  bubble.innerText = text;
+  messages.appendChild(bubble);
+  scrollToBottom();
+}
+
+// Typing indicator
+function showTyping() {
+  const typing = document.createElement("div");
+  typing.classList.add("chat-bubble", "ai", "typing");
+  typing.id = "typing-indicator";
+
+  typing.innerHTML = `
+    <span></span>
+    <span></span>
+    <span></span>
+  `;
+
+  messages.appendChild(typing);
+  scrollToBottom();
+}
+
+function removeTyping() {
+  const typing = document.getElementById("typing-indicator");
+  if (typing) typing.remove();
+}
+
+// Send message
+async function sendMessage() {
   const message = input.value.trim();
   if (!message) return;
 
-  // Show user message
-  const userMsg = document.createElement("div");
-  userMsg.textContent = "You: " + message;
-  messages.appendChild(userMsg);
-
+  createBubble(message, "user");
   input.value = "";
 
-  const response = await fetch("/.netlify/functions/chat", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      message: message,
-    }),
-  });
+  showTyping();
 
-  const data = await response.json();
+  try {
+    const response = await fetch("/.netlify/functions/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ message }),
+    });
 
-  const botMsg = document.createElement("div");
-  botMsg.textContent = "AI: " + (data.reply || "No response");
-  messages.appendChild(botMsg);
+    const data = await response.json();
 
-  messages.scrollTop = messages.scrollHeight;
+    removeTyping();
 
+    const reply =
+      data.reply ||
+      "I'm sorry, something went wrong. Please try again.";
+
+    createBubble(reply, "ai");
+  } catch (err) {
+    removeTyping();
+    createBubble("Connection issue. Please try again.", "ai");
+  }
 }
-document.getElementById("ai-text").addEventListener("keypress", function(e) {
+
+// Enter key send
+input.addEventListener("keypress", function (e) {
   if (e.key === "Enter") {
     sendMessage();
   }
 });
+
+// Auto scroll if user opens chat
+// const observer = new MutationObserver(scrollToBottom);
+// observer.observe(messages, { childList: true });
