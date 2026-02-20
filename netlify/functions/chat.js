@@ -1,9 +1,10 @@
 exports.handler = async function (event) {
   try {
-    const { message } = JSON.parse(event.body || "{}");
+    const { message } = JSON.parse(event.body);
 
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${process.env.GEMINI_API_KEY}`,
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=" +
+        process.env.GEMINI_API_KEY,
       {
         method: "POST",
         headers: {
@@ -13,42 +14,35 @@ exports.handler = async function (event) {
           contents: [
             {
               role: "user",
-              parts: [{
-  text: `You are the AI assistant for Physio Centers of Africa.
-You help visitors understand services, locations, and booking appointments.
+              parts: [
+                {
+                  text: `You are an assistant for Physio Centers of Africa.
+Explain services clearly and help visitors book appointments.
 
-User: ${message}`
-}],
-
+User message: ${message}`,
+                },
+              ],
             },
           ],
         }),
       }
     );
 
-    const data = await res.json();
-
+    const data = await response.json();
     console.log("Gemini response:", JSON.stringify(data));
 
-    let reply = "Sorry, I couldn't respond.";
-
-    if (data.candidates && data.candidates.length > 0) {
-      const parts = data.candidates[0].content.parts;
-      reply = parts.map(p => p.text).join(" ");
-    }
+    const reply =
+      data.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "AI did not return a message";
 
     return {
       statusCode: 200,
       body: JSON.stringify({ reply }),
     };
   } catch (error) {
-    console.log(error);
-
     return {
       statusCode: 500,
-      body: JSON.stringify({
-        error: error.message,
-      }),
+      body: JSON.stringify({ error: error.message }),
     };
   }
 };
