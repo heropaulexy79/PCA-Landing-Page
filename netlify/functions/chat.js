@@ -1,5 +1,12 @@
 exports.handler = async function (event) {
   try {
+    if (!event.body) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ reply: "No message received." }),
+      };
+    }
+
     const { message } = JSON.parse(event.body);
 
     const systemPrompt = `
@@ -29,9 +36,8 @@ Rules:
 - If they ask location, list the clinics.
 `;
 
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=" +
-        process.env.GEMINI_API_KEY,
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash-latest:generateContent?key=${process.env.GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: {
@@ -40,9 +46,10 @@ Rules:
         body: JSON.stringify({
           contents: [
             {
+              role: "user",
               parts: [
                 {
-                  text: systemPrompt + "\nUser: " + message,
+                  text: `${systemPrompt}\nUser: ${message}`,
                 },
               ],
             },
@@ -51,12 +58,15 @@ Rules:
       }
     );
 
-    const data = await response.json();
+    const data = await geminiResponse.json();
     console.log("Gemini response:", JSON.stringify(data));
 
-    const reply =
-      data.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "I'm here to help. Could you please rephrase your question?";
+    let reply =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text || null;
+
+    if (!reply) {
+      reply = "Sorry, I couldn't generate a response right now.";
+    }
 
     return {
       statusCode: 200,
