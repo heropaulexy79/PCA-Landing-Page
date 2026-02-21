@@ -113,52 +113,7 @@ const swiper = new Swiper('.services-slider', {
   }
 });
 
-// const chatButton = document.getElementById("chat-button");
-// const chatBox = document.getElementById("chat-box");
 
-// chatButton.onclick = () => {
-//   chatBox.style.display = chatBox.style.display === "flex" ? "none" : "flex";
-//   chatBox.style.flexDirection = "column";
-// };
-
-// async function sendMessage() {
-//   const input = document.getElementById("ai-text");
-//   const messages = document.getElementById("ai-messages");
-
-//   const message = input.value.trim();
-//   if (!message) return;
-
-//   // Show user message
-//   const userMsg = document.createElement("div");
-//   userMsg.textContent = "You: " + message;
-//   messages.appendChild(userMsg);
-
-//   input.value = "";
-
-//   const response = await fetch("/.netlify/functions/chat", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       message: message,
-//     }),
-//   });
-
-//   const data = await response.json();
-
-//   const botMsg = document.createElement("div");
-//   botMsg.textContent = "AI: " + (data.reply || "No response");
-//   messages.appendChild(botMsg);
-
-//   messages.scrollTop = messages.scrollHeight;
-
-// }
-// document.getElementById("ai-text").addEventListener("keypress", function(e) {
-//   if (e.key === "Enter") {
-//     sendMessage();
-//   }
-// });
 
 // Toggle chat widget
 const chatButton = document.getElementById("chat-button");
